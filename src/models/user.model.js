@@ -60,7 +60,7 @@ const User = sequelize.define('User', {
     allowNull: false
   },
   remember_token: {
-    type: DataTypes.STRING(70),
+    type: DataTypes.STRING(255),
     allowNull: true
   },
   user_image: {

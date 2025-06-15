@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-function authHeader(req, res, next) {
+function authToken(req, res, next) {
     const authHeader = req.header("Authorization");
     if(!authHeader) return res.status(401).json({ message: "Unauthorized: Missing Token" });
     const parts = authHeader.split(" ");
@@ -9,7 +9,7 @@ function authHeader(req, res, next) {
     };
     const token = parts[1];
     
-    jwt.verify((token, process.env.JWT_SECRETKEYTOKEN), (err, decodedUser) => {
+    jwt.verify(token, process.env.JWT_SECRETKEYTOKEN, (err, decodedUser) => {
         if(err) return res.status(403).json({ message: "Forbidden: Invalid Token" });
         req.user = decodedUser;
         next();
@@ -33,7 +33,7 @@ function verifyRefreshToken(token) {
 }
 
 export default {
-    authHeader,
+    authToken,
     verifyToken,
     verifyRefreshToken
 }
