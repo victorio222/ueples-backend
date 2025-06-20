@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import authRepository from "../repositories/auth.repository.js";
 import jwtUtils from '../utils/jwtUtils.js';
 import authMiddleware from '../utils/authMiddleware.js';
+import emailUtils from '../utils/emailUtils.js';
 
 const login = async (email, password) => {
     try {
@@ -23,7 +24,7 @@ const login = async (email, password) => {
         await authRepository.updateToken(user.user_id, remember_token);
         return { token, remember_token };
     } catch (error) {
-        console.log(error);
+        console.error(error);
         throw new Error("Invalid credentials!")
     }
 }
@@ -51,8 +52,34 @@ const rememberToken = async (oldToken) => {
     }
 }
 
+const registerUser = async (data) => {
+  const user = await authRepository.create(data);
+
+//   const verifyLink = `${process.env.CLIENT_URL}/verify-email?token=${token}`;
+//   await emailUtils.sendVerificationEmail(user.email, verifyLink);
+
+  return user;
+};
+
+const verifyEmail = async (token) => {
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_EMAIL_SECRET);
+    const user = await User.findOne({ where: { email: decoded.email } });
+    if (!user) throw new Error("User not found");
+
+    user.is_verified = true;
+    await user.save();
+
+    return true;
+  } catch (err) {
+    throw new Error("Invalid or expired token");
+  }
+};
+
 export default {
     login,
     logout,
-    rememberToken
+    rememberToken,
+    registerUser,
+    verifyEmail
 }

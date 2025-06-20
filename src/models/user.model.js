@@ -5,7 +5,8 @@ const User = sequelize.define('User', {
   user_id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
-    primaryKey: true
+    primaryKey: true,
+    allowNull: false
   },
   first_name: {
     type: DataTypes.STRING(40),
@@ -24,7 +25,7 @@ const User = sequelize.define('User', {
     allowNull: true
   },
   email: {
-    type: DataTypes.STRING(45),
+    type: DataTypes.STRING(100),
     allowNull: false,
     unique: true,
     validate: {
@@ -35,12 +36,12 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING(30),
     allowNull: true
   },
-  email_verified_at: {
-    type: DataTypes.DATE,
-    allowNull: true
-  },
+  //   email_verified_at: {
+  //     type: DataTypes.DATE,
+  //     allowNull: true
+  //   },
   password: {
-    type: DataTypes.STRING(30),
+    type: DataTypes.STRING(250),
     allowNull: false
   },
   id_card: {
@@ -52,7 +53,7 @@ const User = sequelize.define('User', {
     allowNull: false
   },
   status: {
-    type: DataTypes.ENUM('Active', 'Inactive'), // You can adjust options based on your logic
+    type: DataTypes.ENUM('Active', 'Inactive'),
     allowNull: false
   },
   role: {
@@ -64,12 +65,17 @@ const User = sequelize.define('User', {
     allowNull: true
   },
   user_image: {
-    type: DataTypes.STRING, // You can add length if needed
+    type: DataTypes.STRING,
     allowNull: true
   },
+  is_verified: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  }
+
 }, {
   tableName: 'User',
-  timestamps: true, // automatically maps `createdAt` and `updatedAt`
+  timestamps: true,
   createdAt: 'created_at',
   updatedAt: 'updated_at'
 });
