@@ -1,7 +1,15 @@
 import harvestRepository from "../repositories/harvest.repository.js";
 
 const addHarvest = async (data) => {
-  return await harvestRepository.create(data);
+  const harvest = await harvestRepository.create(data);
+   await logRepo.addLog({
+    log_type: 'CREATE',
+    event_desc: `Harvest of quantity ${harvest.harvest_qty} recorded.`,
+    severity: 'INFO',
+    module: 'PlantHarvest',
+    user_id
+  });
+  return harvest;
 };
 
 const updateHarvest = async (id, data) => {
@@ -9,7 +17,17 @@ const updateHarvest = async (id, data) => {
   if (!existing) throw new Error("Harvest record not found.");
 
   await harvestRepository.update(id, data);
-  return await harvestRepository.findById(id);
+  const updated = await harvestRepository.findById(id);
+  
+   await logRepo.addLog({
+    log_type: 'UPDATE',
+    event_desc: `Harvest #${id} updated.`,
+    severity: 'INFO',
+    module: 'PlantHarvest',
+    user_id
+  });
+
+  return updated;
 };
 
 const getAllHarvests = async () => {
