@@ -66,7 +66,7 @@ CLIENT_URL=http://localhost:3000
 ### 4. Run the Development Server
 
 ```bash
-npm run dev
+npm start
 ```
 
 ---
