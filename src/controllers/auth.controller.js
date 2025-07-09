@@ -33,8 +33,10 @@ const logout = async (req, res) => {
     try {
         const { email } = req.body;
         const user = await authServices.logout(email);
-        if (!user) res.status(404).json({ message: "Email not found " });
-        res.status(200).json({ message: "Logged out succesfully!" })
+        if (!user) {
+            return res.status(404).json({ message: "Email not found" });
+        }
+        res.status(200).json({ message: "Logged out successfully!" });
     } catch (error) {
         res.status().json({ message: error.message });
         console.error(error);
@@ -47,7 +49,7 @@ const refreshToken = async (req, res) => {
         const { remember_token } = req.body;
         if (!remember_token) res.status(400).json({ message: "Missing remember token!" });
 
-        const newToken = authServices.rememberToken(remember_token);
+        const newToken = await authServices.rememberToken(remember_token);
         res.json({ newToken })
     } catch (error) {
         console.error("Refresh failed:", error.message, refreshToken);

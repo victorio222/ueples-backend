@@ -1,0 +1,11 @@
+{
+  "plant_name": "Lettuce",
+  "species_family": "Asteraceae",
+  "soil_type": "Loamy",
+  "days_till_harvest": 45,
+  "plant_type": "Vegetable",
+  "plant_image": "https://example.com/images/lettuce.jpg",
+  "description": "Lettuce is a leafy green vegetable commonly used in salads.",
+  "plant_row_spacing": 30,
+  "date_planted": "2025-07-01"
+}
