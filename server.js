@@ -13,6 +13,7 @@ import readingsRoute from './src/routers/sensorReadings.router.js';
 import seasonRoute from './src/routers/cropSeasons.router.js';
 import logRouter from './src/routers/logs.router.js';
 import stageRouter from './src/routers/plantStage.router.js';
+import transplantRouter from './src/routers/transplant.router.js';
 // import dbConnection from './src/config/db.js';
 
 const PORT = process.env.PORT || 5000;
@@ -53,6 +54,7 @@ app.use('/api/hydroponicModel/', hydromodelRoute);
 app.use('/api/cropSeason/', seasonRoute);
 app.use('/api/logs/', logRouter);
 app.use('/api/plantStage/', stageRouter);
+app.use('/api/transplant/', transplantRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
