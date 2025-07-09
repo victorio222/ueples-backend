@@ -2,7 +2,7 @@ import harvestServices from "../services/harvest.services.js";
 
 const createHarvest = async (req, res) => {
   try {
-    const harvest = await harvestServices.addHarvest(req.body);
+    const harvest = await harvestService.addHarvest(req.body, req.user?.user_id);
     res.status(201).json({
       message: "Harvest recorded successfully.",
       data: harvest
@@ -11,6 +11,7 @@ const createHarvest = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
 
 const updateHarvest = async (req, res) => {
   try {
