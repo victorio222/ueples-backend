@@ -1,4 +1,4 @@
-import plantStageRepository from "../repositories/plantStage.repository.js";
+import plantStageRepository from "../repositories/plantStage.repository";
 
 const addStage = async (data) => {
   // Ensure only one active stage per transplant

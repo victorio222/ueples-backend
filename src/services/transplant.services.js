@@ -1,4 +1,4 @@
-import transplantRepository from "../repositories/plantTransplant.repository.js";
+import transplantRepository from "../repositories/transplant.repository.js";
 
 const addTransplant = async (data) => {
   if (data.status === 'active') {

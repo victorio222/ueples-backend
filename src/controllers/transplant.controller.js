@@ -1,4 +1,4 @@
-import transplantServices from "../services/plantTransplant.services.js";
+import transplantServices from "../services/transplant.services.js";
 
 const createTransplant = async (req, res) => {
   try {
