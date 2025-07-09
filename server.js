@@ -15,14 +15,13 @@ import logRouter from './src/routers/logs.router.js';
 import stageRouter from './src/routers/plantStage.router.js';
 import transplantRouter from './src/routers/transplant.router.js';
 import harvestRouter from './src/routers/harvest.router.js';
-// import dbConnection from './src/config/db.js';
+import reportRouter from './src/routers/report.router.js';
 
 const PORT = process.env.PORT || 5000;
 const allowedOrigins = ['http://localhost:3000', 'http://localhost:8080'];
 
 const app = express()
 app.use(express.json());
-// dbConnection();
 
 app.use(cors({
     origin: function(origin, cb) {
@@ -57,6 +56,7 @@ app.use('/api/logs/', logRouter);
 app.use('/api/plantStage/', stageRouter);
 app.use('/api/transplant/', transplantRouter);
 app.use('/api/harvest/', harvestRouter);
+app.use('/api/report/', reportRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

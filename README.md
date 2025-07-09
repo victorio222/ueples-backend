@@ -131,7 +131,7 @@ Use `{ force: true }` **only during development** to drop and recreate all table
 
 ## 👨‍💻 Author
 
-Developed by Vincent Flores and team.
+Developed by Victorio Cabatingan and team.
 
 ---
 
