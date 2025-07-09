@@ -1,0 +1,5 @@
+{
+  "harvest_qty": 95,
+  "date_of_harvest": "2025-07-06",
+  "transplant_id": 2
+}
