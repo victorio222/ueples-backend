@@ -1,0 +1,7 @@
+{
+  "log_type": "AUTH",
+  "event_desc": "User failed login attempt",
+  "severity": "WARNING",
+  "module": "Authentication",
+  "user_id": 3
+}
