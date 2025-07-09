@@ -1,0 +1,8 @@
+{
+  "plant_stage_name": "Seedling",
+  "current_qty": 20,
+  "active": true,
+  "start_date": "2025-07-01",
+  "end_date": "2025-07-15",
+  "transplant_id": 1
+}
