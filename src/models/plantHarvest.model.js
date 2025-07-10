@@ -24,6 +24,10 @@ const PlantHarvest = sequelize.define('PlantHarvest', {
             key: 'transplant_id'
         }
     },
+     is_deleted: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    }
 }, {
     tableName: 'PlantHarvest',
     timestamps: true,

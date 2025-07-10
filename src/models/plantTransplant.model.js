@@ -28,6 +28,10 @@ const PlantTransplant = sequelize.define('PlantTransplant', {
             key: 'hydromodel_id'
         }
     },
+     is_deleted: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    }
 }, {
     tableName: 'PlantTransplant'
 });

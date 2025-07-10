@@ -51,6 +51,10 @@ const PlantRequirements = sequelize.define('PlantRequirements', {
             key: 'plant_id'
         }
     },
+     is_deleted: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    }
 }, {
     tableName: 'PlantRequirements',
     timestamps: true,

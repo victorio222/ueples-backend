@@ -19,6 +19,10 @@ const Sensors = sequelize.define('Sensors', {
     sensor_image: {
         type: DataTypes.TEXT,
         allowNull: true
+    },
+     is_deleted: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 }, {
     tableName: 'Sensors',

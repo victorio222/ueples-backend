@@ -42,6 +42,10 @@ const PlantInformation = sequelize.define('PlantInformation', {
     },
     date_planted: {
         type: DataTypes.DATEONLY,
+    },
+    is_deleted: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 }, {
     tableName: 'PlantInformation',
