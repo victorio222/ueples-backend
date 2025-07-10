@@ -24,15 +24,15 @@ const app = express()
 app.use(express.json());
 
 app.use(cors({
-    origin: function(origin, cb) {
-        if(!origin) return cb(null, true);
-        if(allowedOrigins.includes(origin)) {
-            return cb(null, true);
-        } else {
-            return cb("Not allowed by cors");
-        }
-    },
-    credentials: true
+  origin: function (origin, cb) {
+    if (!origin) return cb(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return cb(null, true);
+    } else {
+      return cb("Not allowed by cors");
+    }
+  },
+  credentials: true
 }));
 
 sequelize.sync({ force: false }) // { alter: true } or { force: true } to recreate every time
@@ -59,5 +59,5 @@ app.use('/api/harvest/', harvestRouter);
 app.use('/api/report/', reportRouter);
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 })
