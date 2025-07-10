@@ -1,4 +1,4 @@
-import logsServices from "../services/logs.services";
+import logsServices from "../services/logs.services.js";
 
 const createLog = async (req, res) => {
   try {

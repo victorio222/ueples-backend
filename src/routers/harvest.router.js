@@ -1,5 +1,5 @@
 import express from "express";
-import harvestController from "../controllers/harvest.controller";
+import harvestController from "../controllers/harvest.controller.js";
 
 const harvestRouter = express.Router();
 
