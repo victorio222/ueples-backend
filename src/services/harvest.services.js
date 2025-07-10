@@ -1,8 +1,10 @@
 import harvestRepository from "../repositories/harvest.repository.js";
+import logsRepository from "../repositories/logs.repository.js";
 
 const addHarvest = async (data) => {
+  const { user_id } = data;
   const harvest = await harvestRepository.create(data);
-   await logRepo.addLog({
+   await logsRepository.createLog({
     log_type: 'CREATE',
     event_desc: `Harvest of quantity ${harvest.harvest_qty} recorded.`,
     severity: 'INFO',
@@ -13,13 +15,14 @@ const addHarvest = async (data) => {
 };
 
 const updateHarvest = async (id, data) => {
+  const { user_id } = data;
   const existing = await harvestRepository.findById(id);
   if (!existing) throw new Error("Harvest record not found.");
 
   await harvestRepository.update(id, data);
   const updated = await harvestRepository.findById(id);
   
-   await logRepo.addLog({
+   await logsRepository.createLog({
     log_type: 'UPDATE',
     event_desc: `Harvest #${id} updated.`,
     severity: 'INFO',

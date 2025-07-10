@@ -3,7 +3,7 @@ import plantStageController from "../controllers/plantStage.controller.js";
 
 const stageRouter = express.Router();
 
-stageRouter.post("/", plantStageController.addStage);
+stageRouter.post("/add", plantStageController.addStage);
 stageRouter.put("/update/:id", plantStageController.updateStage);
 stageRouter.get("/", plantStageController.getAllStages);
 stageRouter.get("/active", plantStageController.getActiveStages);

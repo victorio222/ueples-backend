@@ -1,5 +1,5 @@
 {
   "reading_value": 750,
-  "sensor_id": 2,
+  "sensor_id": 1,
   "hydromodel_id": 1
 }

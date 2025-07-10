@@ -10,11 +10,8 @@ const login = async (email, password) => {
         throw new Error("Email not found")
     }
     const isPasswordMatch = await bcrypt.compare(password, user.password);
-    // if(!isPasswordMatch) {
-    //     throw new Error("Incorrect password")
-    // }
-    if (password !== user.password) {
-        throw new Error("Incorrect password");
+    if(!isPasswordMatch) {
+        throw new Error("Incorrect password")
     }
 
     const token = jwtUtils.generateToken(user);
