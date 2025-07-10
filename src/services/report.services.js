@@ -1,6 +1,9 @@
 import reportRepository from "../repositories/report.repository.js";
 
-const addReport = async (data) => {
+const addReport = async (data, file) => {
+  if(file) {
+    data.file_location = file.filename
+  }
   return await reportRepository.create(data);
 };
 

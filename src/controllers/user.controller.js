@@ -23,7 +23,7 @@ const getUserById = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const userId = req.params.id;
-        const image = req.file;
+        const image = req.files?.user_image?.[0];
         const data = req.body;
         const updated = await userServices.updateUser(userId, data, image);
         if(!updated) res.status(404).json({ message: "User not found" });

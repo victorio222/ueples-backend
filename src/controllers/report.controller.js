@@ -2,8 +2,9 @@ import reportServices from "../services/report.services.js";
 
 const createReport = async (req, res) => {
   try {
+    const file = req.files?.file_location?.[0];
     const data = req.body;
-    const result = await reportServices.addReport(data);
+    const result = await reportServices.addReport(data, file);
     res.status(201).json({
       message: "Report created successfully.",
       data: result

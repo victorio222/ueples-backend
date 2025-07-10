@@ -8,6 +8,6 @@ const router = express.Router();
 
 router.get('/', userController.getAll);
 router.get('/:id', authMiddleware.authToken, userController.getUserById);
-router.put('/update/:id', upload.single("user_image"), userController.updateUser);
+router.put('/update/:id', upload.fields([{ name: 'user_image', maxCount: 1 }]), userController.updateUser);
 
 export default router;
