@@ -17,7 +17,8 @@ const getSensorById = async (req, res) => {
 const addSensor = async (req, res) => {
     try {
         const data = req.body;
-        const result = await sensorsServices.add(data);
+        const image = req.files?.sensor_image?.[0];
+        const result = await sensorsServices.add(data, image);
         res.status(201).json({
             message: "Sensor added successfully.",
             data: result
@@ -31,7 +32,8 @@ const updateSensor = async (req, res) => {
     try {
         const id = req.params.id;
         const data = req.body;
-        const result = await sensorsServices.update(id, data);
+        const image = req.files?.sensor_image?.[0];
+        const result = await sensorsServices.update(id, data, image);
         res.status(200).json({
             message: "Sensor have been updated.",
             data: result

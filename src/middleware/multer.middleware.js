@@ -5,8 +5,11 @@ import fs from 'fs'
 const userDir = "uploads/user_profiles";
 const idDir = "uploads/id_cards";
 const reportDir = "uploads/reports";
+const sensorsDir = 'uploads/sensors';
+const plantsDir = "uploads/plants";
+const modelDir = "uploads/hydromodel";
 
-[userDir, idDir, reportDir].forEach(dir => {
+[userDir, idDir, reportDir, sensorsDir, plantsDir].forEach(dir => {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
 
@@ -19,6 +22,12 @@ const storage = multer.diskStorage({
             dir = idDir;
         } else if (field === 'file_location') {
             dir = reportDir;
+        } else if (field === 'sensor_image') {
+            dir = sensorsDir;
+        } else if(field === 'plant_image') {
+            dir = plantsDir;
+        } else if (field === 'hydromodel_image') {
+            dir = modelDir;
         } else {
             dir = userDir;
         }
@@ -40,7 +49,7 @@ const fileFilter = (req, file, cb) => {
     const isImage = imageTypes.test(ext) && mime.startsWith('image/');
     const isDoc = docTypes.test(ext);
 
-    if (file.fieldname === 'user_image' || file.fieldname === 'id_card') {
+    if (file.fieldname === 'user_image' || file.fieldname === 'id_card' || file.fieldname === 'plant_image' || file.fieldname === 'sensor_image' || file.fieldname === 'hydromodel_image') {
         return isImage ? cb(null, true) : cb(new Error(`Invalid image type for field: ${file.fieldname}`));
     } else if (file.fieldname === 'file_location') {
         return isDoc ? cb(null, true) : cb(new Error(`Invalid document type for field: ${file.fieldname}`));

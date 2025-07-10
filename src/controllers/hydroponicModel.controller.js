@@ -17,7 +17,8 @@ const getModelById = async (req, res) => {
 const addModel = async (req, res) => {
     try {
         const data = req.body;
-        const result = await hydroponicModelServices.add(data);
+        const image = req.files?.hydromodel_image?.[0];
+        const result = await hydroponicModelServices.add(data, image);
         res.status(201).json({
             message: "Hydroponic model added successfully.",
             data: result
@@ -30,7 +31,8 @@ const addModel = async (req, res) => {
 const updateModel = async (req, res) => {
     try {
         const id = req.params.id;
-        const result = await hydroponicModelServices.update(id, data);
+        const image = req.files?.hydromodel_image?.[0];
+        const result = await hydroponicModelServices.update(id, data, image);
         res.status(200).json({
             message: "Hydroponic model have been updated.",
             data: result

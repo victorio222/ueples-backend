@@ -12,16 +12,22 @@ const findById = async (id) => {
     }
 };
 
-const add = async (data) => {
+const add = async (data, file) => {
     try {
+        if(file) {
+            data.hydromodel_image = file.filename;
+        }
         return await hydroponicModelRepository.create(data);
     } catch (error) {
         throw error
     }
 };
 
-const update = async (id, data) => {
+const update = async (id, data, file) => {
     try {
+        if(file) {
+            data.hydromodel_image = file.filename;
+        }
         const result = await hydroponicModelRepository.update(id, data);
         if(result === 1) {
             return await hydroponicModelRepository.findById(id);

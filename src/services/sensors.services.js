@@ -2,24 +2,30 @@ import sensorsRepository from "../repositories/sensors.repository.js";
 
 const findById = async (id) => {
     const sensor = await sensorsRepository.findById(id);
-    if(!sensor) {
+    if (!sensor) {
         throw new Error("Sensor not found.")
     }
     return sensor;
 };
 
-const add = async (data) => {
+const add = async (data, file) => {
     try {
+        if (file) {
+            data.sensor_image = file.filename;
+        }
         return await sensorsRepository.create(data);
     } catch (error) {
         throw error
     }
 };
 
-const update = async (id, data) => {
+const update = async (id, data, file) => {
     try {
+        if (file) {
+            data.sensor_image = file.filename;
+        }
         const result = await sensorsRepository.update(id, data);
-        if(result === 1) {
+        if (result === 1) {
             return await sensorsRepository.findById(id);
         } else {
             throw new Error("Sensor not found.");
@@ -32,7 +38,7 @@ const update = async (id, data) => {
 const remove = async (id) => {
     try {
         const result = await sensorsRepository.remove(id);
-        if(result === 0) {
+        if (result === 0) {
             throw new Error("Sensor not found.");
         }
         return result;
@@ -43,7 +49,7 @@ const remove = async (id) => {
 
 export default {
     findById,
-    add, 
+    add,
     update,
     remove
 }

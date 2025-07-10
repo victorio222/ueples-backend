@@ -23,7 +23,8 @@ const getByPlantId = async (req, res) => {
 const addPlantInfo = async (req, res) => {
     try {
         const data = req.body;
-        const plantInfo = await plantInformationServices.add(data);
+        const image = req.files?.plant_image?.[0];
+        const plantInfo = await plantInformationServices.add(data, image);
         res.status(201).json({
               message: "Plant information added successfully.",
             data: plantInfo
@@ -37,7 +38,8 @@ const updatePlantInfo = async (req, res) => {
     try {
         const id = req.params.id;
         const data = req.body;
-        const plantInfo = await plantInformationServices.update(id, data);
+        const image = req.files?.plant_image?.[0];
+        const plantInfo = await plantInformationServices.update(id, data, image);
         if(!plantInfo) res.status(404).json("Plant information not found.")
         res.status(201).json({
             message: "Plant information has been updated.",
