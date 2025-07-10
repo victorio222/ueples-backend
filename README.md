@@ -83,11 +83,11 @@ npm start
 
 ### 🌿 User Management
 
-| Method | Endpoint              | Description              |
-|--------|---------------    ----|--------------------------|
-| GET    | `/api/user/`          | List all user            |
-| GET    | `/api/user/:id`       | Retrieve use by id       |
-| PUT    | `/api/user/update:id` | Update user info         |
+| Method | Endpoint              | Description          |
+|--------|-----------------------|----------------------|
+| GET    | `/api/user/`          |  List all user       |
+| GET    | `/api/user/:id`       |  Retrieve use by id  |
+| PUT    | `/api/user/update:id` |  Update user info    |
 
 ### 🔐 Authentication
 
