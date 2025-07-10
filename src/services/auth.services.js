@@ -1,7 +1,8 @@
 import bcrypt from 'bcrypt';
 import authRepository from "../repositories/auth.repository.js";
 import jwtUtils from '../utils/jwtUtils.js';
-import authMiddleware from '../utils/authMiddleware.js';
+import authMiddleware from '../middleware/auth.middleware.js';
+// import authMiddleware from '../utils/authMiddleware.js';
 import emailUtils from '../utils/emailUtils.js';
 
 const login = async (email, password) => {
@@ -44,9 +45,16 @@ const rememberToken = async (oldToken) => {
     }
 }
 
-const registerUser = async (data) => {
+const registerUser = async (data, idCard) => {
     const hashedPassword = await bcrypt.hash(data.password, 10);
     data.password = hashedPassword;
+    if ((data.role === 'Farmer' || data.role === 'Staff') && !idCard) {
+      throw new Error("ID card is required for Farmer or Staff");
+    }
+
+    if (idCard) {
+      data.id_card = idCard.filename;
+    }
     const user = await authRepository.create(data);
 
     //   const verifyLink = `${process.env.CLIENT_URL}/verify-email?token=${token}`;

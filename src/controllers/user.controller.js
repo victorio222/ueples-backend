@@ -23,15 +23,17 @@ const getUserById = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const userId = req.params.id;
+        const image = req.file;
         const data = req.body;
-        const user = await userServices.updateUser(userId, data);
-        if(!user) res.status(404).json({ message: "User not found" });
+        const updated = await userServices.updateUser(userId, data, image);
+        if(!updated) res.status(404).json({ message: "User not found" });
         res.status(200).json({
             message: "User updated successfully!",
-            data: user
+            data: updated
         });
     } catch (error) {
         res.status(500).json({ message: error.message });
+        console.error(error)
     }
 }
 

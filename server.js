@@ -16,6 +16,7 @@ import stageRouter from './src/routers/plantStage.router.js';
 import transplantRouter from './src/routers/transplant.router.js';
 import harvestRouter from './src/routers/harvest.router.js';
 import reportRouter from './src/routers/report.router.js';
+import path from 'path';
 
 const PORT = process.env.PORT || 5000;
 const allowedOrigins = ['http://localhost:3000', 'http://localhost:8080'];
@@ -57,6 +58,7 @@ app.use('/api/plantStage/', stageRouter);
 app.use('/api/transplant/', transplantRouter);
 app.use('/api/harvest/', harvestRouter);
 app.use('/api/report/', reportRouter);
+app.use('/api/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

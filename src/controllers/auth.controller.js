@@ -3,13 +3,19 @@ import authServices from "../services/auth.services.js";
 const register = async (req, res) => {
     try {
         const data = req.body;
-        const user = await authServices.registerUser(data);
+        const idCard = req.files?.id_card?.[0];
+        const user = await authServices.registerUser(data, idCard);
         res.status(201).json({
             message: "Register successfully!",
             data: user
         })
     } catch (error) {
+        if (error.message === "ID card is required for Farmer or Staff") {
+            res.status(400).json({ message: error.message });
+        } else {
+            
         res.status(500).json({ message: error.message });
+        }
         console.error(error);
     }
 }
