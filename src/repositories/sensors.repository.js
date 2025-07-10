@@ -9,7 +9,7 @@ const create = async (data) => {
 };
 
 const update = async (id, data) => {
-    const sensors = await Sensors.update(data, {
+    const [sensors] = await Sensors.update(data, {
         where: { sensor_id: id }
     });
     return sensors;
