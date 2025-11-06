@@ -4,10 +4,10 @@ import authMiddleware from '../middleware/auth.middleware.js';
 import upload from '../middleware/multer.middleware.js';
 // import authMiddleware from '../utils/authMiddleware.js';
 
-const router = express.Router();
+const userRouter = express.Router();
 
-router.get('/', userController.getAll);
-router.get('/:id', authMiddleware.authToken, userController.getUserById);
-router.put('/update/:id', upload.fields([{ name: 'user_image', maxCount: 1 }]), userController.updateUser);
+userRouter.get('/', userController.getAll);
+userRouter.get('/:id', authMiddleware.authToken, userController.getUserById);
+userRouter.put('/update/:id', upload.fields([{ name: 'user_image', maxCount: 1 }]), userController.updateUser);
 
-export default router;
+export default userRouter;

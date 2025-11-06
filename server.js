@@ -8,6 +8,7 @@ import authRouter from './src/routers/auth.router.js';
 import logRouter from './src/routers/logs.router.js';
 import reportRouter from './src/routers/report.router.js';
 import path from 'path';
+import collegeRouter from './src/routers/colleges.router.js';
 
 const PORT = process.env.PORT || 5000;
 const allowedOrigins = ['http://localhost:3000', 'http://localhost:8080'];
@@ -36,8 +37,9 @@ sequelize.sync({ force: true }) // { alter: true } or { force: true } to recreat
   });
 
 // routes
+app.use('/api/auth', authRouter);
 app.use('/api/user/', userRouter);
-app.use('/api/colleges', college)
+app.use('/api/colleges', collegeRouter);
 app.use('/api/auth/', authRouter);
 app.use('/api/logs/', logRouter);
 app.use('/api/report/', reportRouter);
