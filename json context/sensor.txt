@@ -1,5 +1,0 @@
-{
-  "sensor_name": "Water Temperature Sensor",
-  "sensor_desc": "Monitors the temperature of the water in the hydroponic system.",
-  "sensor_image": "http://example.com/images/water-temp-sensor.png"
-}

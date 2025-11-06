@@ -1,6 +1,0 @@
-{
-  "initial_qty": 150,
-  "transplant_date": "2025-07-06",
-  "status": "active",
-  "hydromodel_id": 1
-}

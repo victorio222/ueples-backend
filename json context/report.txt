@@ -1,4 +1,0 @@
-{
-  "report_title": "Monthly Yield Report - July 2025",
-  "file_location": "/reports/monthly-yield-july-2025.pdf"
-}

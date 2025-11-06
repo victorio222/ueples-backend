@@ -1,6 +1,0 @@
-{
-  "hydromodel_name": "NFT Vertical Stack Model",
-  "num_of_plants": 36,
-  "hydromodel_image": "https://example.com/images/nft_model.png",
-  "plant_id": 1
-}

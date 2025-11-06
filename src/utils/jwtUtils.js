@@ -2,8 +2,9 @@ import jwt from 'jsonwebtoken';
 
 function generateToken(user) {
     const payload = {
-        userId: user.userId,
-        email: user.email
+        user_id: user.user_id,
+        email: user.email,
+        role_id: user.role_id
     }
 
     return jwt.sign(
@@ -15,8 +16,9 @@ function generateToken(user) {
 
 function generateRefreshToken(user) {
     const payload = {
-        userId: user.userId,
-        email: user.email
+        user_id: user.user_id,
+        email: user.email,
+        role_id: user.role_id
     }
 
     return jwt.sign(

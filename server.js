@@ -5,16 +5,7 @@ import sequelize from './src/config/db.js';
 import './src/models/index.js'
 import userRouter from './src/routers/user.router.js';
 import authRouter from './src/routers/auth.router.js';
-import plantInfoRoute from './src/routers/plantInformation.router.js';
-import plantRequirementRoute from './src/routers/plantRequirements.router.js';
-import sensorRoute from './src/routers/sensors.router.js';
-import hydromodelRoute from './src/routers/hydroponicModel.router.js';
-import readingsRoute from './src/routers/sensorReadings.router.js';
-import seasonRoute from './src/routers/cropSeasons.router.js';
 import logRouter from './src/routers/logs.router.js';
-import stageRouter from './src/routers/plantStage.router.js';
-import transplantRouter from './src/routers/transplant.router.js';
-import harvestRouter from './src/routers/harvest.router.js';
 import reportRouter from './src/routers/report.router.js';
 import path from 'path';
 
@@ -38,25 +29,16 @@ app.use(cors({
 
 sequelize.sync({ force: false }) // { alter: true } or { force: true } to recreate every time
   .then(() => {
-    console.log('✅ Tables synced to MySQL successfully!');
+    console.log('Tables synced to MySQL successfully!');
   })
   .catch((error) => {
-    console.error('❌ Failed to sync schema:', error);
+    console.error('Failed to sync schema:', error);
   });
 
 // routes
 app.use('/api/user/', userRouter);
 app.use('/api/auth/', authRouter);
-app.use('/api/plantInformation/', plantInfoRoute);
-app.use('/api/plantRequirements/', plantRequirementRoute);
-app.use('/api/sensor/', sensorRoute);
-app.use('/api/sensorReadings/', readingsRoute);
-app.use('/api/hydroponicModel/', hydromodelRoute);
-app.use('/api/cropSeason/', seasonRoute);
 app.use('/api/logs/', logRouter);
-app.use('/api/plantStage/', stageRouter);
-app.use('/api/transplant/', transplantRouter);
-app.use('/api/harvest/', harvestRouter);
 app.use('/api/report/', reportRouter);
 app.use('/api/uploads', express.static(path.join(process.cwd(), 'uploads')));
 

@@ -3,29 +3,33 @@ import sequelize from '../config/db.js';
 
 const User = sequelize.define('User', {
   user_id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.BIGINT(10),
     autoIncrement: true,
     primaryKey: true,
     allowNull: false
   },
   first_name: {
-    type: DataTypes.STRING(40),
+    type: DataTypes.STRING(20),
     allowNull: false
   },
   last_name: {
-    type: DataTypes.STRING(40),
+    type: DataTypes.STRING(20),
     allowNull: false
   },
   middle_name: {
-    type: DataTypes.STRING(40),
+    type: DataTypes.STRING(20),
     allowNull: true
   },
-  extension_name: {
-    type: DataTypes.STRING(15),
+  suffix_name: {
+    type: DataTypes.STRING(5),
     allowNull: true
+  },
+  birthdate: {
+    type: DataTypes.DATE,
+    allowNull: false
   },
   email: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(20),
     allowNull: false,
     unique: true,
     validate: {
@@ -33,19 +37,15 @@ const User = sequelize.define('User', {
     }
   },
   phone_number: {
-    type: DataTypes.STRING(30),
+    type: DataTypes.STRING(20),
     allowNull: true
   },
-  //   email_verified_at: {
-  //     type: DataTypes.DATE,
-  //     allowNull: true
-  //   },
   password: {
-    type: DataTypes.STRING(250),
+    type: DataTypes.STRING(20),
     allowNull: false
   },
-  id_card: {
-    type: DataTypes.TEXT('medium'),
+  user_image: {
+    type: DataTypes.STRING(50),
     allowNull: true
   },
   gender: {
@@ -56,23 +56,42 @@ const User = sequelize.define('User', {
     type: DataTypes.ENUM('Active', 'Inactive'),
     allowNull: false
   },
-  role: {
-    type: DataTypes.ENUM('Admin', 'Staff', 'Farmer', 'Student'),
-    allowNull: false
-  },
   remember_token: {
     type: DataTypes.STRING(255),
     allowNull: true
   },
-  user_image: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
-  is_verified: {
+  isOnline: {
     type: DataTypes.BOOLEAN,
-    defaultValue: false,
+    defaultValue: false
+  },
+  last_active: {
+    type: DataTypes.TIME,
+    allowNull: false
+  },
+  college_id: {
+    type: DataTypes.BIGINT(10),
+    allowNull: false,
+    references: {
+      model: 'Colleges',
+      key: 'college_id'
+    }
+  },
+  campus_id: {
+    type: DataTypes.BIGINT(10),
+    allowNull: false,
+    references: {
+      model: 'Campuses',
+      key: 'campus_id'
+    }
+  }, 
+  role_id: {
+    type: DataTypes.BIGINT(10),
+    allowNull: false,
+    references: {
+      model: 'UserRole',
+      key: 'role_id'
+    }
   }
-
 }, {
   tableName: 'User',
   timestamps: true,
