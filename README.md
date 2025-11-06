@@ -1,4 +1,4 @@
-# 🌱 Smart Hydroponic Farming System - Backend API
+# URDS SYSTEM - Backend API
 
 This is the backend of the **URDS SYSTEM**, built with **Node.js**, **Express**, **Sequelize**, and **MySQL**. It provides RESTful APIs for managing users, research proposals and projects, tracking of statuses, logs, revision history, and monitoring in a research management setup.
 
