@@ -1,19 +1,73 @@
+// import { DataTypes } from "sequelize";
+// import sequelize from "../config/db.js";
+
+// const Colleges = sequelize.define('Colleges', {
+//     college_id: {
+//         type: DataTypes.BIGINT.UNSIGNED,
+//         primaryKey: true,
+//         autoIncrement: true,
+//         allowNull: false
+//     },
+//     college_name: {
+//         type: DataTypes.STRING(20),
+//         allowNull: false
+//     },
+//     campus_id: {
+//         type: DataTypes.BIGINT.UNSIGNED,
+//         allowNull: false,
+//         references: {
+//             model: 'Campuses',
+//             key: 'campus_id'
+//         }
+//     },
+//     col_dean_id: {
+//         type: DataTypes.BIGINT.UNSIGNED,
+//         allowNull: false,
+//         references: {
+//             model: 'User',
+//             key: 'user_id'
+//         }
+//     },
+//     col_coordinator_id: {
+//         type: DataTypes.BIGINT.UNSIGNED,
+//         allownNull: false,
+//         references: {
+//             model: 'User',
+//             key: 'user_id'
+//         }
+//     }
+// }, {
+//     tableName: 'Colleges',
+//     timestamps: true,
+//     created_at: 'created_at'
+// });
+
+// export default Colleges;
+
+
+
+
+
+
+
+
+
 import { DataTypes } from "sequelize";
-import sequelize from "../config/db";
+import sequelize from "../config/db.js";
 
 const Colleges = sequelize.define('Colleges', {
     college_id: {
-        type: DataTypes.BIGINT(10),
+        type: DataTypes.BIGINT.UNSIGNED,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
     },
     college_name: {
-        type: DataTypes.STRING(20),
+        type: DataTypes.STRING(50),
         allowNull: false
     },
     campus_id: {
-        type: DataTypes.BIGINT(10),
+        type: DataTypes.BIGINT.UNSIGNED,
         allowNull: false,
         references: {
             model: 'Campuses',
@@ -21,16 +75,16 @@ const Colleges = sequelize.define('Colleges', {
         }
     },
     col_dean_id: {
-        type: DataTypes.BIGINT(10),
-        allowNull: false,
+        type: DataTypes.BIGINT.UNSIGNED,
+        allowNull: true,
         references: {
             model: 'User',
             key: 'user_id'
         }
     },
     col_coordinator_id: {
-        type: DataTypes.BIGINT(10),
-        allownNull: false,
+        type: DataTypes.BIGINT.UNSIGNED,
+        allowNull: true,
         references: {
             model: 'User',
             key: 'user_id'
@@ -39,7 +93,8 @@ const Colleges = sequelize.define('Colleges', {
 }, {
     tableName: 'Colleges',
     timestamps: true,
-    created_at: 'created_at'
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
 });
 
 export default Colleges;

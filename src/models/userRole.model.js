@@ -1,9 +1,9 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../config/db";
+import sequelize from "../config/db.js";
 
 const UserRole = sequelize.define('UserRole', {
     role_id: {
-        type: DataTypes.BIGINT(10),
+        type: DataTypes.BIGINT.UNSIGNED,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false

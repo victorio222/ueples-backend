@@ -27,7 +27,7 @@ app.use(cors({
   credentials: true
 }));
 
-sequelize.sync({ force: false }) // { alter: true } or { force: true } to recreate every time
+sequelize.sync({ force: true }) // { alter: true } or { force: true } to recreate every time
   .then(() => {
     console.log('Tables synced to MySQL successfully!');
   })
@@ -37,6 +37,7 @@ sequelize.sync({ force: false }) // { alter: true } or { force: true } to recrea
 
 // routes
 app.use('/api/user/', userRouter);
+app.use('/api/colleges', college)
 app.use('/api/auth/', authRouter);
 app.use('/api/logs/', logRouter);
 app.use('/api/report/', reportRouter);

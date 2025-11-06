@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
 import authRepository from "../repositories/auth.repository.js";
-import jwtUtils from '../utils/jwtUtils.js';
+import jwtUtils from '../utils/jwt.util.js';
 import authMiddleware from '../middleware/auth.middleware.js';
 // import authMiddleware from '../utils/authMiddleware.js';
-import emailUtils from '../utils/emailUtils.js';
+// import emailUtils from '../utils/email.util.js';
 
 const login = async (email, password) => {
     const user = await authRepository.findByEmail(email);

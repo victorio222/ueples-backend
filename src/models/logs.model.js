@@ -3,7 +3,7 @@ import sequelize from "../config/db.js";
 
 const Logs = sequelize.define('Logs', {
     log_id: {
-        type: DataTypes.INTEGER(8),
+        type: DataTypes.BIGINT.UNSIGNED,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true
@@ -25,7 +25,7 @@ const Logs = sequelize.define('Logs', {
         allowNull: false
     },
     user_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT.UNSIGNED,
         references: {
             model: 'User',
             key: 'user_id'

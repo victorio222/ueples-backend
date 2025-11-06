@@ -3,7 +3,7 @@ import sequelize from "../config/db.js";
 
 const Reports = sequelize.define('Reports', {
     report_id: {
-        type: DataTypes.INTEGER(8),
+        type: DataTypes.BIGINT.UNSIGNED,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
