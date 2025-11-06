@@ -1,11 +1,20 @@
 import User from "../models/user.model.js";
+import UserRole from "../models/userRole.model.js";
 
 const findAll = async () => {
     return await User.findAll();
 }
 
 const findById = async (id) => {
-    return await User.findByPk(id);
+    return await User.findByPk(id, {
+        include: [
+            {
+                model: UserRole,
+                as: "role",
+                attributes: ["role_name"]
+            }
+        ]
+    });
 }
 
 const findByEmail = async (email) => {
