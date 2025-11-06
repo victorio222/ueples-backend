@@ -1,12 +1,12 @@
 import bcrypt from 'bcrypt';
-import authRepository from "../repositories/auth.repository.js";
+import userRepository from "../repositories/user.repository.js";
 import jwtUtils from '../utils/jwt.util.js';
 import authMiddleware from '../middleware/auth.middleware.js';
 // import authMiddleware from '../utils/authMiddleware.js';
 // import emailUtils from '../utils/email.util.js';
 
 const login = async (email, password) => {
-    const user = await authRepository.findByEmail(email);
+    const user = await userRepository.findByEmail(email);
     if (!user) {
         throw new Error("Email not found")
     }
@@ -18,12 +18,12 @@ const login = async (email, password) => {
     const token = jwtUtils.generateToken(user);
     const remember_token = jwtUtils.generateRefreshToken(user);
 
-    await authRepository.updateToken(user.user_id, remember_token);
+    await userRepository.updateToken(user.user_id, remember_token);
     return { token, remember_token };
 }
 
 const logout = async (email) => {
-    const user = await authRepository.findByEmail(email);
+    const user = await userRepository.findByEmail(email);
     if (!user) return false;
     user.remember_token = null;
     await user.save();
@@ -33,7 +33,7 @@ const logout = async (email) => {
 const rememberToken = async (oldToken) => {
     const decodedUser = authMiddleware.verifyRefreshToken(oldToken);
     try {
-        const user = await authRepository.findByEmail(decodedUser.email);
+        const user = await userRepository.findByEmail(decodedUser.email);
         if (!user || user.remember_token !== oldToken) {
             throw new Error("Remember token mismatch or user not found");
         };
@@ -55,7 +55,7 @@ const registerUser = async (data, idCard) => {
     if (idCard) {
       data.id_card = idCard.filename;
     }
-    const user = await authRepository.create(data);
+    const user = await userRepository.create(data);
 
     //   const verifyLink = `${process.env.CLIENT_URL}/verify-email?token=${token}`;
     //   await emailUtils.sendVerificationEmail(user.email, verifyLink);
