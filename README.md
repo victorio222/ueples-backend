@@ -129,9 +129,7 @@ Use `{ force: true }` **only during development** to drop and recreate all table
 
 ## 📌 Future Enhancements
 
-- Role-based access control
 - Automatic PDF report generation
-- Sensor graph API for analytics
 - Email notification system
 
 ---
