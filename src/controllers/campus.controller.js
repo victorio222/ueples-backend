@@ -1,4 +1,4 @@
-import campusServices from "../services/campus.services"
+import campusServices from "../services/campus.services.js"
 
 const getAllCampus = async (req, res) => {
     try {
@@ -31,6 +31,7 @@ const addNewCampus = async (req, res) => {
         });
     } catch (error) {
         res.status(500).json({ message: error.message });
+        console.error({ message: error.message });
     };
 };
 
@@ -41,6 +42,7 @@ const updateCampus = async (req, res) => {
             message: "Campus updated successfully.",
             data: updateData
         });
+        console.log(updateData);
     } catch (error) {
         if(error.message.includes("not found")) {
             res.status(404).json({ message: error.message });

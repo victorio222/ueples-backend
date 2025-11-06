@@ -1,11 +1,19 @@
-import Colleges from "../models/colleges.model"
+import Campuses from "../models/campuses.model.js";
+import Colleges from "../models/colleges.model.js"
 
 const findAll = async () => {
     return await Colleges.findAll();
 };
 
 const findById = async (id) => {
-    return await Colleges.findByPk(id);
+    const college = await Colleges.findByPk(id, {
+        include: [{
+            model: Campuses,
+            as: "campus",
+            attributes: ["campus_id", "campus_name"]
+        }]
+    });
+    return college;
 };
 
 const create = async (data) => {

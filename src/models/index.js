@@ -72,7 +72,7 @@ Campuses.hasMany(User, {
     onUpdate: 'CASCADE'
 });
 User.belongsTo(Campuses, {
-    foreignKey: 'campus_id'
+    foreignKey: 'campus_id',
 });
 
 // Campus 1 --- * Colleges
@@ -82,7 +82,8 @@ Campuses.hasMany(Colleges, {
     onUpdate: 'CASCADE'
 });
 Colleges.belongsTo(Campuses, {
-    foreignKey: 'campus_id'
+    foreignKey: 'campus_id',
+    as: 'campus'
 });
 
 // User 1 --- * Colleges (Dean)

@@ -1,11 +1,12 @@
-import Colleges from "../models/colleges.model"
+import collegesRepository from "../repositories/colleges.repository.js";
+
 
 const findAll = async () => {
-    return await Colleges.findAll();
+    return await collegesRepository.findAll();
 };
 
 const findById = async (id) => {
-    const college = await Colleges.findById(id);
+    const college = await collegesRepository.findById(id);
     if(!college) {
         throw new Error("College not found");
     };
@@ -14,15 +15,15 @@ const findById = async (id) => {
 };
 
 const addCollege = async (data) => {
-    return await Colleges.create(data);
+    return await collegesRepository.create(data);
 };
 
-const updateCollege = async (id, college) => {
-    const updated = await Colleges.update(id, data);
+const updateCollege = async (id, data) => {
+    const updated = await collegesRepository.update(id, data);
     if(updated[0] === 0) {
         throw new Error("College not found or no changes made.")
     };
-    return await Colleges.findById(id);
+    return await collegesRepository.findById(id);
 };
 
 export default {

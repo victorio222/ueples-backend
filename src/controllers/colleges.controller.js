@@ -1,4 +1,4 @@
-import collegesServices from "../services/colleges.services"
+import collegesServices from "../services/colleges.services.js"
 
 const getAllCollege = async (req, res) => {
     try {

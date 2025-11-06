@@ -1,4 +1,4 @@
-import Campuses from "../models/campuses.model"
+import Campuses from "../models/campuses.model.js"
 
 const findAll = async () => {
     return await Campuses.findAll();
@@ -17,6 +17,7 @@ const update = async (id, data) => {
             where: { campus_id: id }
         }
     );
+    return campus;
 };
 
 export default {
