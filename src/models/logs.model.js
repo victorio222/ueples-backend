@@ -8,6 +8,13 @@ const Logs = sequelize.define('Logs', {
         allowNull: false,
         autoIncrement: true
     },
+    user_id: {
+        type: DataTypes.BIGINT.UNSIGNED,
+        references: {
+            model: 'User',
+            key: 'user_id'
+        }
+    },
     log_type: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -24,12 +31,13 @@ const Logs = sequelize.define('Logs', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    user_id: {
-        type: DataTypes.BIGINT.UNSIGNED,
-        references: {
-            model: 'User',
-            key: 'user_id'
-        }
+    ipAddress: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }, 
+    deviceInfo: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
 }, {
     tableName: 'Logs',
