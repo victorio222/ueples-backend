@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../config/db";
+import sequelize from "../config/db.js";
 
 const ProposalFiles = sequelize.define("ProposalFiles", {
     file_id: {
@@ -20,7 +20,7 @@ const ProposalFiles = sequelize.define("ProposalFiles", {
         type: DataTypes.BIGINT.UNSIGNED,
         allowNull: false,
         references: {
-            model: "Revisions",
+            model: "RevisionHistory",
             key: 'revision_id'
         }
     },
@@ -49,3 +49,5 @@ const ProposalFiles = sequelize.define("ProposalFiles", {
     timestamps: true,
     createdAt: "uploadDate"
 })
+
+export default ProposalFiles;

@@ -9,6 +9,11 @@ import logRouter from './src/routers/logs.router.js';
 import reportRouter from './src/routers/report.router.js';
 import path from 'path';
 import collegeRouter from './src/routers/colleges.router.js';
+import announcementRouter from './src/routers/announcement.router.js';
+import proposalsRouter from './src/routers/proposals.router.js';
+import proposalFilesRouter from './src/routers/proposalFiles.router.js';
+import notificationRouter from './src/routers/notifications.router.js';
+
 
 const PORT = process.env.PORT || 5000;
 const allowedOrigins = ['http://localhost:3000', 'http://localhost:8080'];
@@ -40,9 +45,12 @@ sequelize.sync({ force: true }) // { alter: true } or { force: true } to recreat
 app.use('/api/auth', authRouter);
 app.use('/api/user/', userRouter);
 app.use('/api/colleges', collegeRouter);
-app.use('/api/auth/', authRouter);
 app.use('/api/logs/', logRouter);
 app.use('/api/report/', reportRouter);
+app.use('/api/announcement/', announcementRouter);
+app.use('/api/proposal/', proposalsRouter);
+app.use('/api/proposalFiles/', proposalFilesRouter);
+app.use('/api/notifications/', notificationRouter);
 app.use('/api/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
 app.listen(PORT, () => {
