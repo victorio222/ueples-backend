@@ -189,7 +189,7 @@ const User = sequelize.define('User', {
   }, 
   role_id: {
     type: DataTypes.BIGINT.UNSIGNED,
-    allowNull: false
+    allowNull: true
   }
 }, {
   tableName: 'User',

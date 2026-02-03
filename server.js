@@ -28,7 +28,7 @@ app.use(cors({
   credentials: true
 }));
 
-sequelize.sync({ force: true }) // { alter: true } or { force: true } to recreate every time
+sequelize.sync({ alter: true }) // { alter: true } or { force: true } to recreate every time
   .then(() => {
     console.log('Tables synced to MySQL successfully!');
   })
