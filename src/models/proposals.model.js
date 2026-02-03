@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../config/db";
+import sequelize from "../config/db.js";
 
 const Proposals = sequelize.define("Proposals", {
     proposal_id: {
@@ -57,7 +57,7 @@ const Proposals = sequelize.define("Proposals", {
         allowNull: true
     },
     submissionDate: {
-        type: DataTypes.Date,
+        type: DataTypes.DATE,
         allowNull: false
     }
 }, {
