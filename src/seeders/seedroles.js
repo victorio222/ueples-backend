@@ -2,12 +2,9 @@ import UserRole from "../models/userRole.model.js";
 
 const seedRoles = async () => {
   const roles = [
-    { role_name: "URDS Director" },
-    { role_name: "URDS Staff" },
-    { role_name: "College Coordinator" },
-    { role_name: "Faculty Researcher" },
-    { role_name: "Senior Faculty Researcher" },
-    { role_name: "Researcher" }
+    { role_name: "Principal" },
+    { role_name: "Secretary" },
+    { role_name: "Staff" },
   ];
 
   for (const role of roles) {

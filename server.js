@@ -1,58 +1,105 @@
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import cookieParser from 'cookie-parser';
+
+// Database and Models
 import sequelize from './src/config/db.js';
-import './src/models/index.js'
+import './src/models/index.js';
+
+// Routers
 import userRouter from './src/routers/user.router.js';
 import authRouter from './src/routers/auth.router.js';
 import logRouter from './src/routers/logs.router.js';
-import reportRouter from './src/routers/report.router.js';
-import path from 'path';
-import collegeRouter from './src/routers/colleges.router.js';
-import announcementRouter from './src/routers/announcement.router.js';
-import proposalsRouter from './src/routers/proposals.router.js';
-import proposalFilesRouter from './src/routers/proposalFiles.router.js';
-import notificationRouter from './src/routers/notifications.router.js';
+import studentRoutes from './src/routers/students.route.js';
+import documentRoutes from './src/routers/documents.route.js';
+import academicYearRoutes from './src/routers/academicYear.route.js';
+import seedRoles from './src/seeders/seedroles.js';
+import seedStudents from './src/seeders/seedstudents.js';
+import seedUsers from './src/seeders/seeduser.js';
+import seedAcademicYears from './src/seeders/seedacademidyears.js';
+import seedDocuments from './src/seeders/seeddocuments.js';
+import roleRouter from './src/routers/userrole.router.js';
+import statisticsRoute from './src/routers/statistics.route.js';
+import seedDocumentTypes from './src/seeders/documentType.js';
 
+// Helper for ESM __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+const app = express();
 const PORT = process.env.PORT || 5000;
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:8080'];
 
-const app = express()
+// --- Middleware ---
+app.use(cookieParser());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+const allowedOrigins = [
+  'http://localhost:5173', 
+  'http://localhost:8080', 
+  'http://192.168.1.202:5173',
+  'http://192.168.1.116:5173',
+  'http://192.168.1.186:5173',
+  'http://192.168.1.131:5173'
+];
 app.use(cors({
   origin: function (origin, cb) {
+    console.log("Request coming from origin:", origin);
+    // Allow requests with no origin (like mobile apps or curl)
     if (!origin) return cb(null, true);
     if (allowedOrigins.includes(origin)) {
       return cb(null, true);
     } else {
-      return cb("Not allowed by cors");
+      return cb(new Error("Not allowed by CORS"));
     }
   },
   credentials: true
 }));
 
-sequelize.sync({ alter: true }) // { alter: true } or { force: true } to recreate every time
-  .then(() => {
-    console.log('Tables synced to MySQL successfully!');
-  })
-  .catch((error) => {
-    console.error('Failed to sync schema:', error);
-  });
+// --- Static Files ---
+// Serving the uploads folder
+app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// routes
+// --- Routes ---
+app.get('/health', (req, res) => res.status(200).send('Server is healthy'));
+
 app.use('/api/auth', authRouter);
-app.use('/api/user/', userRouter);
-app.use('/api/colleges', collegeRouter);
-app.use('/api/logs/', logRouter);
-app.use('/api/report/', reportRouter);
-app.use('/api/announcement/', announcementRouter);
-app.use('/api/proposal/', proposalsRouter);
-app.use('/api/proposalFiles/', proposalFilesRouter);
-app.use('/api/notifications/', notificationRouter);
-app.use('/api/uploads', express.static(path.join(process.cwd(), 'uploads')));
+app.use('/api/users', userRouter);
+app.use('/api/roles', roleRouter);
+app.use('/api/students', studentRoutes);
+app.use('/api/documents', documentRoutes);
+app.use('/api/academic-years', academicYearRoutes);
+app.use('/api/stats', statisticsRoute);
+// app.use('/api/logs', logRouter); // Uncomment when ready
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-})
+// --- Database Sync & Server Start ---
+const startServer = async () => {
+  try {
+    // Authenticate connection first
+    await sequelize.authenticate();
+    console.log('Database connection has been established successfully.');
+
+    // Change to { alter: true } during dev if you update models
+    await sequelize.sync({ alter: true }); 
+    console.log('Tables synced to MySQL successfully!');
+
+    await seedRoles();
+    await seedDocumentTypes();
+    await seedDocuments();
+    await seedUsers();
+    await seedStudents();
+    await seedAcademicYears();
+
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`🚀 Server is running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error('Unable to connect to the database or sync schema:', error);
+    process.exit(1); // Exit process with failure
+  }
+};
+
+startServer();
