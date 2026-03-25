@@ -5,6 +5,7 @@ const seedRoles = async () => {
     { role_name: "Principal" },
     { role_name: "Secretary" },
     { role_name: "Staff" },
+    { role_name: "Intern" },
   ];
 
   for (const role of roles) {

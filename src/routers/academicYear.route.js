@@ -7,5 +7,6 @@ const academicYearRoutes = Router();
 
 academicYearRoutes.get('/', authMiddleware.authToken, AcademicYearController.index);
 academicYearRoutes.post('/add', authMiddleware.authToken, validateAcademicYear, AcademicYearController.store);
+academicYearRoutes.get('/imported/:doctypeId', AcademicYearController.getImportedBatches);
 
 export default academicYearRoutes;

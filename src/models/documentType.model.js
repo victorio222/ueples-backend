@@ -11,10 +11,15 @@ const DocumentType = sequelize.define('DocumentType', {
     name: {
         type: DataTypes.STRING(50),
         allowNull: false
-    }
+    },
+    isBatchesImported: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
 }, {
     tableName: 'DocumentType',
     timestamps: true,
+    paranoid: true,
 });
 
 export default DocumentType;

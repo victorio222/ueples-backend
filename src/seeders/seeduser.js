@@ -15,7 +15,7 @@ const seedUsers = async () => {
       password: hashedPassword,
       gender: "Male",
       status: "Active",
-      role_id: 3 // Matches 'Admin' in your role seeder
+      role_id: 1 // Matches 'Admin' in your role seeder
     },
     {
       first_name: "Jane",
@@ -35,7 +35,7 @@ const seedUsers = async () => {
       password: hashedPassword,
       gender: "Male",
       status: "Active",
-      role_id: 2 // Matches 'Staff'
+      role_id: 3 // Matches 'Staff'
     }
   ];
 

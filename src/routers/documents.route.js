@@ -13,7 +13,13 @@ documentRoutes.get('/', authMiddleware.authToken, DocumentController.fetchAll);
 
 documentRoutes.get('/type', authMiddleware.authToken, documentTypeController.index);
 
+documentRoutes.get('/type/name/:name', authMiddleware.authToken, documentTypeController.getByName);
+
 documentRoutes.post('/type/add', authMiddleware.authToken, documentTypeController.store);
+
+documentRoutes.put('/type/:id/update', authMiddleware.authToken, documentTypeController.update);
+
+documentRoutes.delete('/type/:id', authMiddleware.authToken, documentTypeController.delete);
 
 documentRoutes.get('/year/:acad_year', authMiddleware.authToken, DocumentController.fetchByAcademicYear);
 

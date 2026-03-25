@@ -14,16 +14,38 @@ class DocumentTypeRepository {
         });
     }
 
+    async findById(id) {
+        return await DocumentType.findByPk(id);
+    }
+
     async create(data) {
         return await DocumentType.create(data);
     }
 
-    async findOrCreate(label) {
+    async updateFolder (id, data) {
+    const [folder] = await DocumentType.update(data, {
+        where: { doctype_id: id }
+    });
+    return folder;
+}
+
+    // async findOrCreate(label) {
+    //     return await DocumentType.findOrCreate({
+    //         where: { name: label },
+    //         defaults: {
+    //             name: label,
+    //         }
+    //     });
+    // }
+
+    async findOrCreate(data) {
+        const { name, isBatchesImported = false, isSubFolder = false } = data;
         return await DocumentType.findOrCreate({
-            where: { name: label },
+            where: { name },
             defaults: {
-                name: label,
-            }
+                name,
+                isBatchesImported,
+            },
         });
     }
 
@@ -39,5 +61,13 @@ class DocumentTypeRepository {
         });
     }
 }
+
+// DocumentType.addHook('afterSoftDelete', async (instance, options) => {
+//     const { doctype_id } = instance;
+//     const trans = { transaction: options.transaction };
+
+//     await sequelize.models.AcademicYear.destroy({ where: { doctype_id }, ...trans });
+//     await sequelize.models.SubFolder.destroy({ where: { doctype_id }, ...trans });
+// });
 
 export default new DocumentTypeRepository();

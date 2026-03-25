@@ -19,7 +19,7 @@ class DocumentController {
             const newDoc = await DocumentService.uploadStudentDocument(
                 req.file,
                 req.body,
-                req.user.user_id // Now this is safe
+                req.user.user_id
             );
 
             return res.status(201).json({
@@ -51,15 +51,6 @@ class DocumentController {
         }
     };
 
-    // async fetchAll(req, res) {
-    //     try {
-    //         const documents = await DocumentService.getArchiveData();
-    //         return res.status(200).json(documents);
-    //     } catch (error) {
-    //         return res.status(500).json({ message: "Internal Server Error" });
-    //     }
-    // }
-
     async fetchByAcademicYear(req, res) {
         try {
             const { acad_year } = req.params;
@@ -67,6 +58,38 @@ class DocumentController {
             return res.status(200).json(document);
         } catch (error) {
             return res.status(500).json({ message: error.message });
+        }
+    }
+
+    // main and sub folders
+    async uploadDocument(req, res) {
+        try {
+            // Guard clause: Check if user exists
+            if (!req.user || !req.user.user_id) {
+                return res.status(401).json({
+                    message: "Unauthorized: No user information found in request."
+                });
+            }
+
+            if (!req.file) {
+                return res.status(400).json({ message: "No file uploaded" });
+            }
+
+            const newDoc = await DocumentService.uploadDocument(
+                req.file,
+                req.body,
+                req.user.user_id
+            );
+
+            return res.status(201).json({
+                message: "Document uploaded successfully!",
+                data: newDoc
+            });
+        } catch (error) {
+            if (req.file) {
+                fs.unlinkSync(req.file.path);
+            }
+            return res.status(400).json({ message: error.message });
         }
     }
 }

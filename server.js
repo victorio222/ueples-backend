@@ -24,6 +24,8 @@ import seedDocuments from './src/seeders/seeddocuments.js';
 import roleRouter from './src/routers/userrole.router.js';
 import statisticsRoute from './src/routers/statistics.route.js';
 import seedDocumentTypes from './src/seeders/documentType.js';
+import folderRoutes from './src/routers/subfolder.route.js';
+import fileRoutes from './src/routers/files.route.js';
 
 // Helper for ESM __dirname equivalent
 const __filename = fileURLToPath(import.meta.url);
@@ -32,22 +34,19 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// --- Middleware ---
-app.use(cookieParser());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
 const allowedOrigins = [
   'http://localhost:5173', 
   'http://localhost:8080', 
   'http://192.168.1.202:5173',
-  'http://192.168.1.116:5173',
+  'http://192.168.1.75:5173',
   'http://192.168.1.186:5173',
-  'http://192.168.1.131:5173'
+  'http://192.168.1.11:5173',
+  'http://10.210.242.19:5173'
 ];
 app.use(cors({
   origin: function (origin, cb) {
-    console.log("Request coming from origin:", origin);
+    console.log("Request origin:", origin || "No Origin Header");
+    // console.log("Request coming from origin:", origin);
     // Allow requests with no origin (like mobile apps or curl)
     if (!origin) return cb(null, true);
     if (allowedOrigins.includes(origin)) {
@@ -58,6 +57,13 @@ app.use(cors({
   },
   credentials: true
 }));
+
+// app.options('*', cors());
+
+// --- Middleware ---
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // --- Static Files ---
 // Serving the uploads folder
@@ -73,6 +79,8 @@ app.use('/api/students', studentRoutes);
 app.use('/api/documents', documentRoutes);
 app.use('/api/academic-years', academicYearRoutes);
 app.use('/api/stats', statisticsRoute);
+app.use('/api/folders', folderRoutes);
+app.use('/api/uploaded', fileRoutes);
 // app.use('/api/logs', logRouter); // Uncomment when ready
 
 // --- Database Sync & Server Start ---
@@ -83,7 +91,7 @@ const startServer = async () => {
     console.log('Database connection has been established successfully.');
 
     // Change to { alter: true } during dev if you update models
-    await sequelize.sync({ alter: true }); 
+    await sequelize.sync(); 
     console.log('Tables synced to MySQL successfully!');
 
     await seedRoles();

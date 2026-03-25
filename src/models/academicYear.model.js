@@ -11,6 +11,10 @@ const AcademicYear = sequelize.define('AcademicYear', {
     academic_year: {
         type: DataTypes.STRING(50),
         allowNull: false
+    },
+    doctype_id: {
+        type: DataTypes.BIGINT.UNSIGNED,
+        allowNull: true
     }
 }, {
     tableName: 'AcademicYear',

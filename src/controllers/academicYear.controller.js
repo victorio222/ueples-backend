@@ -16,13 +16,13 @@ class AcademicYearController {
             // Wrap in status and data
             return res.status(200).json({
                 status: 'success',
-                data: years 
+                data: years
             });
         } catch (error) {
             return res.status(500).json({ message: error.message });
         }
     }
-    
+
     // async index(req, res) {
     //     try {
     //         const years = await AcademicYearService.getYearList();
@@ -31,6 +31,23 @@ class AcademicYearController {
     //         return res.status(500).json({ message: error.message });
     //     }
     // }
+
+    async getImportedBatches(req, res) {
+        const { doctypeId } = req.params;
+
+        try {
+            const batches = await AcademicYearService.getImportedBatches(doctypeId);
+            return res.status(200).json({
+                status: 'success',
+                data: batches
+            });
+        } catch (error) {
+            return res.status(500).json({
+                status: 'error',
+                message: error.message
+            });
+        }
+    }
 }
 
 export default new AcademicYearController();

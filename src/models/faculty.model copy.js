@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/db.js';
 
-const User = sequelize.define('User', {
-  user_id: {
+const Faculty = sequelize.define('Faculty', {
+  faculty_id: {
     type: DataTypes.BIGINT.UNSIGNED,
     autoIncrement: true,
     primaryKey: true,
@@ -26,7 +26,7 @@ const User = sequelize.define('User', {
   },
   email: {
     type: DataTypes.STRING(50), // made 50 chars to be safer for emails
-    allowNull: true,
+    allowNull: false,
     unique: true,
     validate: {
       isEmail: true
@@ -44,9 +44,21 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING(50),
     allowNull: true
   },
-  gender: {
+  sex: {
     type: DataTypes.ENUM('Male', 'Female'),
     allowNull: true
+  },
+  birthdate: {
+    type: DataTypes.DATEONLY,
+    allowNull: false
+  },
+  birthplace: {
+    type: DataTypes.TEXT,
+    allowNull: false
+  },
+  religion: {
+    type: DataTypes.TEXT,
+    allowNull: false
   },
   status: {
     type: DataTypes.ENUM('Active', 'Inactive'),
@@ -56,15 +68,16 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING(255),
     allowNull: true
   },
-  role_id: {
+  role: {
     type: DataTypes.BIGINT.UNSIGNED,
-    allowNull: false
+    allowNull: false,
+    defaultValue: "Faculty"
   }
 }, {
-  tableName: 'User',
+  tableName: 'Faculty',
   timestamps: true,
   createdAt: 'created_at',
   updatedAt: 'updated_at'
 });
 
-export default User;
+export default Faculty;

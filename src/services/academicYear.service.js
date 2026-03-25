@@ -64,6 +64,11 @@ class AcademicYearService {
         return await AcademicYearRepository.getAllYears();
     }
 
+    async getImportedBatches(doctypeId) {
+        const batches = await AcademicYearRepository.getImportedBatchesByDocType(doctypeId);
+        return batches;
+    }
+
     async createNewYear(label) {
         if (!/^\d{4}-\d{4}$/.test(label)) {
             throw new Error("Invalid format. Use YYYY-YYYY (e.g., 2025-2026)");

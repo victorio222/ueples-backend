@@ -1,4 +1,5 @@
 import DocumentRepository from '../repositories/document.repository.js';
+import DocumentItemRepository from '../repositories/subfolderitem.repository.js';
 import StudentRepository from '../repositories/students.repository.js';
 
 class DocumentService {
@@ -48,6 +49,24 @@ class DocumentService {
         }
 
         return academic_year;
+    }
+
+    // main and sub folders
+    async uploadDocument(fileData, bodyData, userId) {
+        // 3. Format and Save
+        const documentPayload = {
+            name: bodyData.name,
+            folder_id: bodyData.folder_id,
+            uploaded_by: userId,
+            type: bodyData.type,
+            file_attachment: fileData.path,
+        };
+
+        return await DocumentItemRepository.createDocument(documentPayload);
+    }
+
+    async findAll() {
+        return await DocumentItemRepository.findAll();
     }
 }
 

@@ -186,7 +186,7 @@ const fileFilter = (req, file, cb) => {
     }
 
     // 3. Handle Student Document Attachments
-    if (file.fieldname === 'attachment') {
+    if (file.fieldname === 'attachment' || file.fieldname === 'file_attachment') {
         const allowedDocs = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.jpg', '.jpeg', '.png'];
         if (allowedDocs.includes(ext)) {
             return cb(null, true);
