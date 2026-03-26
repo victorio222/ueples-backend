@@ -23,6 +23,9 @@ documentRoutes.delete('/type/:id', authMiddleware.authToken, documentTypeControl
 
 documentRoutes.get('/year/:acad_year', authMiddleware.authToken, DocumentController.fetchByAcademicYear);
 
+documentRoutes.post('/lock/:lrn', authMiddleware.authToken, DocumentController.handleLock);
+documentRoutes.delete('/lock/:lrn', authMiddleware.authToken, DocumentController.handleReleaseLock);
+
 // POST a new document (with file upload)
 documentRoutes.post('/upload', authMiddleware.authToken, (req, res, next) => {
     upload.single('attachment')(req, res, (err) => {
