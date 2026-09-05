@@ -8,10 +8,10 @@ import authServices from "../services/auth.services.js";
  */
 const cookieOptions = {
     httpOnly: true,
-    // secure: true,
-    // sameSite: 'none',
-    secure: false,
-    sameSite: 'Lax',
+    secure: true,
+    sameSite: 'none',
+    // secure: false,
+    // sameSite: 'Lax',
     maxAge: 7 * 24 * 60 * 60 * 1000,
     path: '/',
 };
@@ -74,7 +74,7 @@ const logout = async (req, res) => {
 const refreshToken = async (req, res) => {
     try {
         console.log("Cookies received:", req.cookies);
-        const oldRefreshToken = req.cookies.remember_token;
+        const oldRefreshToken = req.cookies.remember_token || req.body.remember_token;
 
         if (!oldRefreshToken) {
             console.error("No refresh token found in cookies");

@@ -36,13 +36,15 @@ async function authToken(req, res, next) {
                 res.cookie('token', newAccessToken, { 
                     httpOnly: true, 
                     // secure: process.env.NODE_ENV === 'production', // Use secure in prod
-                    // secure: true,
-                    // sameSite: 'none',
-                    secure: false,
-                    sameSite: 'Lax',
+                    secure: true,
+                    sameSite: 'none',
+                    // secure: false,
+                    // sameSite: 'Lax',
                     maxAge: 7 * 24 * 60 * 60 * 1000,
                     path: '/'
                 });
+
+                res.setHeader('X-New-Access-Token', newAccessToken);
                 
                 req.user = payload;
                 return next();
