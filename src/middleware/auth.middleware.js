@@ -36,7 +36,7 @@ async function authToken(req, res, next) {
                 res.cookie('token', newAccessToken, { 
                     httpOnly: true, 
                     secure: process.env.NODE_ENV === 'production', // Use secure in prod
-                    sameSite: 'Lax',
+                    sameSite: 'none',
                     path: '/'
                 });
                 
