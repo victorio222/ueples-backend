@@ -23,15 +23,6 @@ class AcademicYearController {
         }
     }
 
-    // async index(req, res) {
-    //     try {
-    //         const years = await AcademicYearService.getYearList();
-    //         return res.status(200).json(years);
-    //     } catch (error) {
-    //         return res.status(500).json({ message: error.message });
-    //     }
-    // }
-
     async getImportedBatches(req, res) {
         const { doctypeId } = req.params;
 

@@ -68,7 +68,7 @@ const logout = async (req, res) => {
 
 const refreshToken = async (req, res) => {
     try {
-        console.log("Cookies received:", req.cookies); // DEBUG 1: See if remember_token exists
+        console.log("Cookies received:", req.cookies);
         const oldRefreshToken = req.cookies.remember_token;
 
         if (!oldRefreshToken) {
@@ -77,7 +77,7 @@ const refreshToken = async (req, res) => {
         }
 
         const newToken = await authServices.rememberToken(oldRefreshToken);
-        console.log("New Access Token generated successfully"); // DEBUG 2
+        console.log("New Access Token generated successfully");
 
         res.cookie('token', newToken, { 
             ...cookieOptions, 
@@ -86,7 +86,7 @@ const refreshToken = async (req, res) => {
 
         res.status(200).json({ message: "Token refreshed successfully" });
     } catch (error) {
-        console.error("Refresh failed in Service:", error.message); // DEBUG 3
+        console.error("Refresh failed in Service:", error.message); 
         res.status(401).json({ message: "Invalid refresh token" });
     }
 };
@@ -111,7 +111,6 @@ const register = async (req, res) => {
 
 const addUser = async (req, res) => {
     try {
-        // This is typically for Admins adding users manually
         const data = req.body;
         const user = await authServices.addUser(data);
         
