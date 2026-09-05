@@ -8,9 +8,9 @@ import authServices from "../services/auth.services.js";
  */
 const cookieOptions = {
     httpOnly: true,
-    secure: true, 
+    // secure: true, 
     // sameSite: 'none',
-    // secure: false,
+    secure: false,
     sameSite: 'lax',
     path: '/',
 };
