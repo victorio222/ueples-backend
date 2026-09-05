@@ -8,29 +8,29 @@ import authServices from "../services/auth.services.js";
  */
 const cookieOptions = {
     httpOnly: true,
-    // secure: true, 
-    // sameSite: 'none',
-    secure: false,
-    sameSite: 'lax',
+    secure: true,
+    sameSite: 'none',
+    // secure: false,
+    // sameSite: 'Lax',
     path: '/',
 };
 
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        
+
         // Service now returns the role name along with tokens
         const { token, remember_token, role, user_id, status } = await authServices.login(email, password);
 
         // 1. Set Access Token Cookie (1 Hour)
-        res.cookie('token', token, { 
-            ...cookieOptions, 
+        res.cookie('token', token, {
+            ...cookieOptions,
             // maxAge: 60 * 60 * 1000 
         });
 
         // 2. Set Refresh Token Cookie (7 Days)
-        res.cookie('remember_token', remember_token, { 
-            ...cookieOptions, 
+        res.cookie('remember_token', remember_token, {
+            ...cookieOptions,
             // maxAge: 7 * 24 * 60 * 60 * 1000 
         });
 
@@ -52,13 +52,15 @@ const logout = async (req, res) => {
         await authServices.logout(email);
 
         // CLEAR BOTH COOKIES WITH EXPLICIT PATH
-        res.clearCookie('token', { 
-            path: '/', 
-            httpOnly: true 
+        res.clearCookie('token', {
+            path: '/',
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none'
         });
-        res.clearCookie('remember_token', { 
-            path: '/', 
-            httpOnly: true 
+        res.clearCookie('remember_token', {
+            path: '/',
+            httpOnly: true
         });
 
         res.status(200).json({ message: "Logged out successfully!" });
@@ -81,14 +83,14 @@ const refreshToken = async (req, res) => {
         const newToken = await authServices.rememberToken(oldRefreshToken);
         console.log("New Access Token generated successfully");
 
-        res.cookie('token', newToken, { 
-            ...cookieOptions, 
+        res.cookie('token', newToken, {
+            ...cookieOptions,
             // maxAge: 60 * 60 * 1000 
         });
 
         res.status(200).json({ message: "Token refreshed successfully" });
     } catch (error) {
-        console.error("Refresh failed in Service:", error.message); 
+        console.error("Refresh failed in Service:", error.message);
         res.status(401).json({ message: "Invalid refresh token" });
     }
 };
@@ -99,7 +101,7 @@ const register = async (req, res) => {
         const idCard = req.files?.id_card?.[0];
 
         const user = await authServices.registerUser(data, idCard);
-        
+
         res.status(201).json({
             message: "Registration successful!",
             data: user
@@ -115,7 +117,7 @@ const addUser = async (req, res) => {
     try {
         const data = req.body;
         const user = await authServices.addUser(data);
-        
+
         res.status(201).json({
             message: "User added successfully by administrator!",
             data: user
