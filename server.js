@@ -41,7 +41,8 @@ const allowedOrigins = [
   'http://192.168.1.75:5173',
   'http://192.168.1.186:5173',
   'http://192.168.1.11:5173',
-  'http://10.210.242.19:5173'
+  'http://10.210.242.19:5173',
+  'https://school-management-system-eight-eosin.vercel.app'
 ];
 app.use(cors({
   origin: function (origin, cb) {
