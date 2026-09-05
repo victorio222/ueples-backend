@@ -66,6 +66,10 @@ class FolderService {
     return await folderRepo.deleteFolder(id);
   }
 
+  async deleteFile(id) {
+    return await subfolderitemRepository.deleteFile(id);
+  }
+
 }
 
 export default new FolderService();

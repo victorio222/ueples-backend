@@ -50,6 +50,10 @@ class DocumentItemRepository {
         return await db.Documents.destroy({ where: { document_id: id } });
     }
 
+    async deleteFile(id) {
+        return await db.SubFolderItem.destroy({ where: { file_id: id } });
+    }
+
     async fetchPaged(page = 1, limit = 10, lrn = null) {
         const offset = (page - 1) * limit;
 

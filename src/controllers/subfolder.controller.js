@@ -301,6 +301,23 @@ class FolderController {
 
   }
 
+    async deleteFile(req, res) {
+
+    try {
+
+      const { id } = req.params;
+
+      await folderService.deleteFile(id);
+
+      res.json({ message: "File deleted" });
+
+    } catch (error) {
+
+      res.status(500).json({ message: error.message });
+
+    }
+
+  }
 }
 
 export default new FolderController();

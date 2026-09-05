@@ -14,6 +14,7 @@ folderRoutes.get("/root/:doctype_id", authMiddleware.authToken, folderController
 folderRoutes.get("/sub/:parent_id", authMiddleware.authToken, folderController.getSubFolders);
 folderRoutes.patch("/update/:id", authMiddleware.authToken, folderController.renameFolder);
 folderRoutes.delete("/delete/:id", authMiddleware.authToken, folderController.deleteFolder);
+folderRoutes.delete("/delete/file/:id", authMiddleware.authToken, folderController.deleteFile);
 folderRoutes.post('/upload', authMiddleware.authToken, (req, res, next) => {
     upload.single('file_attachment')(req, res, (err) => {
         if (err instanceof multer.MulterError) {
