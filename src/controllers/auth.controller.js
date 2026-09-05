@@ -8,10 +8,11 @@ import authServices from "../services/auth.services.js";
  */
 const cookieOptions = {
     httpOnly: true,
-    secure: true,
-    sameSite: 'none',
-    // secure: false,
-    // sameSite: 'Lax',
+    // secure: true,
+    // sameSite: 'none',
+    secure: false,
+    sameSite: 'Lax',
+    maxAge: 7 * 24 * 60 * 60 * 1000,
     path: '/',
 };
 
