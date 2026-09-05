@@ -37,9 +37,9 @@ async function authToken(req, res, next) {
                     httpOnly: true, 
                     // secure: process.env.NODE_ENV === 'production', // Use secure in prod
                     secure: true,
-                    sameSite: 'none',
+                    // sameSite: 'none',
                     // secure: false,
-                    // sameSite: 'Lax',
+                    sameSite: 'lax',
                     path: '/'
                 });
                 
